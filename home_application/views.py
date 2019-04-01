@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import base64
+
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from common.mymako import render_mako_context, render_json
@@ -212,3 +214,16 @@ def delete_script(request, script_id):
     script_data = models.Script.objects.get(id=script_id)
     script_data.delete()
     return redirect(reverse(script_management))
+
+def run_script(request):
+    """
+    执行脚本的接口
+    :param request:
+    :return:
+    """
+    bk_biz_id = request.GET.get('bk_biz_id')
+    set_id = request.GET.get('set_id')
+    ip_list = request.GET.get('ip_list')
+    script_id = request.GET.get('script_id')
+    script_contents = models.Script.objects.get(id=script_id)
+    script_data = base64.b64encode(script_contents.script_content.encode('utf-8'))

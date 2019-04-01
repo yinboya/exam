@@ -14,6 +14,7 @@ urlpatterns = patterns(
     (r'^script_management/$', 'script_management'),  # 脚本列表的接口
     (r'^add_script/$', 'add_script'),  # 添加脚本的接口
     (r'^delete_script/(\d+)$', 'delete_script'),  # 删除脚本的接口
-    (r'^delete_script/(\d+)$', 'delete_script'),  # 删除脚本的接口
+    (r'^run_script/$', 'run_script'),  # 执行脚本接口
+
 
 )

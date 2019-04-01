@@ -127,15 +127,45 @@
                     $("#table_demo2 tbody").empty();
                     for(var i = 0;i < data.data.length; i++){
                         tr = '';
-                        tr = '<tr><td>'+'<input type="checkbox" value="'+ data.data[i]['ip'] +'">'+ '</td><td>'+data.data[i]['os_name']+'</td><td>'+data.data[i]['area']+'</td><td>'+ data.data[i]['ip']+'</td></tr>';
+                        tr = '<tr><td>'+'<input  name="select" type="checkbox" value="'+ data.data[i]['ip'] +'">'+ '</td><td>'+data.data[i]['os_name']+'</td><td>'+data.data[i]['area']+'</td><td>'+ data.data[i]['ip']+'</td></tr>';
                         $("#table_demo2 tbody").append(tr)
                     }
 
                 }
             })
 
+
         })
     </script>
+<script>
+//绑定点击事件
+     $("#sure").click(function () {
+                var one = $("#one").val();
+                var bk_biz_id = one.split(',')[0];
+                var two = $("#two").val();
+                var set_id = two.split(',')[0];
+                var arr = [];
+                var script_id = $("#four").val();
+         //判断表格中选择框是否选中
+                $('#table_demo2 tbody input').each(function () {
+                if($(this).is(':checked')==true){
+                    arr.push($(this).val());
+                }
+                 });
+                 $.ajax({
+                     url:'run_script/',
+                     type:'get',
+                     dataType:'json',
+                     data:{
+                         "bk_biz_id":bk_biz_id,
+                         "set_id":set_id,
+                         "ip_list":arr.toString(),
+                         "script_id":script_id,
+                     },
+                 })
+
+            })
+</script>
   </%block>
 
 
